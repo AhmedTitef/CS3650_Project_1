@@ -1,7 +1,8 @@
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.Scanner;
 
-public class SimulationDriver {
+public class SimulationDriver implements Question {
 
     //create a question type and configure the answers;
     private String type;
@@ -12,10 +13,15 @@ public class SimulationDriver {
 //        SimulationDriver simulationDriver = new SimulationDriver();
 //        simulationDriver.createQuestionType();
 //        VotingService votingService = new VotingService( simulationDriver.type , simulationDriver.answersArray);
-//        votingService.acceptingAdmissions();
 //        simulationDriver.createAQuestion();
-//        simulationDriver.configureTheAnswers();
 //        simulationDriver.generateStudents();
+//        simulationDriver.configureTheAnswers();
+//
+//        // submit answers to ivote service
+//
+//
+//
+//
 ////        simulationDriver.submitAnswersToiVoteService( 1 );
 //        simulationDriver.outputResults();
 //
@@ -26,30 +32,58 @@ public class SimulationDriver {
 
 
 
-    void createQuestionType(){
+    @Override
+    public void createQuestionType(){
         Random randomType = new Random(  );
-//        int randomNumber = randomType.nextInt( 2 ) + 1;
-        int randomNumber = 3;
-        if (randomNumber == 1){
+//        int randomNumber = randomType.nextInt( 3 ) ;
+        int randomNumber = 2;
+        if (randomNumber == 0){
             type = "True False";
-        } else if (randomNumber == 2) {
-            type = "Multiple Choice";
-        }
-        else if (randomNumber == 3){
-            type = "Multiple Choice Multiple Submissions";
-        }
 
+        } else if (randomNumber == 1) {
+            type = "Multiple Choice Single Submission";
+        }
+        else if (randomNumber == 2){
+            type = "Multiple Choice Multiple Submissions";
+        }else{
+
+        }
+        System.out.println("Generated Question Type is: " + type);
 //        type = "Multiple Choice";
 
     }
 
+    @Override
+    public void createInputQuestion() {
+
+        System.out.println("Random Question has been created..");
+//        Scanner scanner = new Scanner( System.in );
+//
+//        String question;
+//            System.out.println( "Please Type your Question" );
+//            question = scanner.nextLine();
+//            System.out.println( "Question Created is " + question );
+//        System.out.println( "Please Choose your Question Type: Multiple Choice(MC) or True and False (TF)" );
+//        this.type = scanner.nextLine();
+
+
+
+
+
+
+    }
+
+
+
     void configureTheAnswers() {
-        if (type.equals( "True False" )) {
-            generateTrueFalseQuestions();
-        } else if (type.equals( "Multiple Choice" )) {
-            generateMultipleChoiceQuestions();
-        }else if (type.equals( "Multiple Choice Multiple Submissions" )){
-            generateMultipleChoiceQuestions();
+        switch (type) {
+            case "True False":
+                generateTrueFalseQuestions();
+                break;
+            case "Multiple Choice Single Submission":
+            case "Multiple Choice Multiple Submissions":
+                generateMultipleChoiceQuestions();
+                break;
         }
     }
 
@@ -72,8 +106,6 @@ public class SimulationDriver {
             System.out.println( answersArray.get( i ).answer );
 
         }
-
-
     }
 
 
@@ -93,15 +125,7 @@ public class SimulationDriver {
 
     }
 
-    void createAQuestion() {
 
-        Question question = new Question();
-        System.out.println( "Creating a Question........" );
-        question.createAQuestion();
-//        System.out.println(question.getAnswers().get( 1 ).count);
-
-
-    }
 
 
     //randomly generate a number students and the answers
@@ -111,20 +135,20 @@ public class SimulationDriver {
 
         ArrayList<Integer> uniqueIDArray = new ArrayList<>(  );
         Random random = new Random();
-        int numberOFStudents = random.nextInt( 40 ) + 1; //only creating 40 students max
+        int numberOFStudents = random.nextInt( 20 - 4 ) + 1; //only creating 40 students max
+        System.out.println( "Number of student(s) created is: " + numberOFStudents );
         for (int i = 1; i <= numberOFStudents; i++) {
 
-            // create unique id number;
-//            while (!uniqueIDArray.contains( id )){
-//                uniqueIDArray.add( id );
-//                new Student( answersArray, type , id );
+            // create unique id number per student;
+//
 //            }
             // if this id been used before, create a new one and check
 
                 while (true){
-                   int id = random.nextInt( 20000 );
+                   int id = random.nextInt( 100000 );
                     if (!uniqueIDArray.contains( id )){
                         uniqueIDArray.add( id );
+                        // generates the answers inside each student
                         new Student( answersArray, type , id );
                         break;
                     }
@@ -133,13 +157,13 @@ public class SimulationDriver {
                 }
 
 
-            //inside student, it creates an automatic answer with student creation
+
 
 
 
         }
 
-        System.out.println( "Number of students created is: " + numberOFStudents );
+
 
     }
 

@@ -6,11 +6,12 @@ public class Main {
 
 
         SimulationDriver simulationDriver = new SimulationDriver();
+        simulationDriver.createInputQuestion();
         simulationDriver.createQuestionType();
-        simulationDriver.createAQuestion();
+
         simulationDriver.configureTheAnswers();
         simulationDriver.generateStudents();
-//        simulationDriver.submitAnswersToiVoteService( 1 );
+
         simulationDriver.outputResults();
 
 

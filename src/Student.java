@@ -1,26 +1,31 @@
 import java.util.ArrayList;
 import java.util.Random;
 
-public class Student extends Question {
+public class Student {
 
+    // contains indexes of the chosen answers
+    ArrayList<Integer> multipleAnswersPerStudent;
     Student(ArrayList<Answers> answers, String type , int id) {
 
+        multipleAnswersPerStudent  = new ArrayList<>();
         //answer is a random number that represents an index s
         Random random = new Random();
 
 
 
+        //Submitting random answers depending on question type
         if (type.equals( "True False" )) {
             int answer = random.nextInt( 2 );
             answers.get( answer ).count++;
 
-        } else if (type.equals( "Multiple Choice" )) {
+        } else if (type.equals( "Multiple Choice Single Submission" )) {
             int answer = random.nextInt( 4 );
+
+
             answers.get( answer ).count++;
 
         } else if (type.equals( "Multiple Choice Multiple Submissions" )) {
-            // contains indexes of the chosen answers
-            ArrayList<Integer> multipleAnswersPerStudent = new ArrayList<>();
+
             // when array of answer is empty,  add first submission first
 
 
@@ -56,8 +61,25 @@ public class Student extends Question {
 
             //here gets the last submission out of all submissions and adds count for it
             answers.get( multipleAnswersPerStudent.get( multipleAnswersPerStudent.size() - 1 ) ).count++;
+//            System.out.println("and last submitted answer is: " + answers.get( multipleAnswersPerStudent.size()-1).answer);
+            System.out.print("Student with id: " + id + " has submitted these answers: " );
+
+//            System.out.println(multipleAnswersPerStudent.size());
+            for (int i = 0 ; i < multipleAnswersPerStudent.size() ; i++){
+
+                System.out.print( answers.get( multipleAnswersPerStudent.get( i )  ).answer + " ");
+
+            }
+//
+
+            System.out.println();
 
         }
+
+        //prints out answers submitted by one student
+
+
+
 
 
         //submitting answer we need to get the array that has the answers and increase the count for that one answer
